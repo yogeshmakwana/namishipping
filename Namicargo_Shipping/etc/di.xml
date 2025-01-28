@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Namicargo\Shipping\Logger\NamicargoCancelLogger">
+        <arguments>
+            <argument name="name" xsi:type="string">NamicargoCancel</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="NamicargoCancel" xsi:type="object">Namicargo\Shipping\Logger\NamicargoCancelHandler</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Namicargo\Shipping\Logger\NamicargoSendOrderToApiLogger">
+        <arguments>
+            <argument name="name" xsi:type="string">NamicargoSendOrderToApi</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="NamicargoSendOrderToApi" xsi:type="object">Namicargo\Shipping\Logger\NamicargoSendOrderToApiHandler</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Namicargo\Shipping\Logger\NamicargoShippingLogger">
+        <arguments>
+            <argument name="name" xsi:type="string">NamicargoShipping</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="NamicargoShipping" xsi:type="object">Namicargo\Shipping\Logger\NamicargoShippingHandler</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Namicargo\Shipping\Logger\NamicargoTransferCustomAttributeLogger">
+        <arguments>
+            <argument name="name" xsi:type="string">NamicargoTransferCustomAttribute</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="NamicargoTransferCustomAttribute" xsi:type="object">Namicargo\Shipping\Logger\NamicargoTransferCustomAttributeHandler</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

@@ -1,0 +1,11 @@
+<?php
+if ($block->getButtonLabel() === 'Account Connected') { ?>
+    <span class="message">Thank you! You are already connected.</span>
+<?php } elseif ($block->getButtonLabel() === 'Connect Your Account') { ?>
+    <button type="button" target="_blank"
+            onclick="window.open('<?= $escaper->escapeHtml($block->getButtonUrl()); ?>')" class="scalable"
+            style="background-color: #3498db; color: white;">
+        <?= $escaper->escapeHtml($block->getButtonLabel()); ?>
+    </button>
+<?php } ?>
+

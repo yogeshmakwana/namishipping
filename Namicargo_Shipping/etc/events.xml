@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <!-- Copy custom attribute from quote to order -->
+    <event name="sales_model_service_quote_submit_before">
+        <observer name="namicargo_transfer_custom_attribute" instance="Namicargo\Shipping\Observer\TransferCustomAttributeObserver" />
+    </event>
+    <!-- call after place order and POST the data to third-party API -->
+    <event name="sales_order_place_after">
+        <observer name="send_order_to_api" instance="Namicargo\Shipping\Observer\SendOrderToApi" />
+    </event>
+    <!-- call when cancel order and DELETE the data from third-party API -->
+    <event name="sales_order_save_after">
+        <observer name="namicargo_cancel_order_api_observer" instance="Namicargo\Shipping\Observer\CancelOrderApiObserver" />
+    </event>
+</config>

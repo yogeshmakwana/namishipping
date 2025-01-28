@@ -1,0 +1,20 @@
+{
+    "name": "namicargo/module-shipping",
+    "description": "Namicargo shipping is third-party online shipping solution for Magento 2",
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": "OSL-3.0",
+    "minimum-stability": "stable",
+    "require": {
+        "php": "~7.4.0||~8.2.12||~8.3.0",
+        "magento/framework": "^102.0||^103.0"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Namicargo\\Shipping\\": ""
+        }
+    }
+}

@@ -1,0 +1,14 @@
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="quote_address">
+        <column xsi:type="varchar" name="nami_shipping_id" nullable="true" length="255" comment="Nami shipping order ID"/>
+        <column xsi:type="varchar" name="cargo_id" nullable="true" comment="cargo_id"/>
+        <column xsi:type="longtext" name="nami_customer_data" nullable="true" comment="nami_customer_data"/>
+        <column xsi:type="longtext" name="nami_warehouse_data" nullable="true" comment="nami_warehouse_data"/>
+        <column xsi:type="longtext" name="nami_shipping_response" nullable="true" comment="nami_shipping_response"/>
+    </table>
+    <table name="sales_order">
+        <column xsi:type="varchar" name="nami_shipping_id" nullable="true" length="255" comment="Nami shipping order ID"/>
+        <column xsi:type="varchar" name="cargo_id" nullable="true" comment="cargo_id"/>
+    </table>
+</schema>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <namicargoshipping>
+                <active>1</active>
+                <sort_order>15</sort_order>
+                <model>Namicargo\Shipping\Model\Carrier\Customshipping</model>
+            </namicargoshipping>
+        </carriers>
+    </default>
+</config>

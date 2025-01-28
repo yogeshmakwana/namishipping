@@ -1,0 +1,19 @@
+<?php
+$orderId = $block->getOrderId();
+$incrementID = $block->getIncrementID();
+$shipping_Id = $block->geShippingID();
+$buttonUrl = 'https://api.nami.la/status.php?order_id=' . $shipping_Id;
+?>
+<?php if ($shipping_Id != null) {  ?>
+    <a href="<?= $escaper->escapeUrl($buttonUrl); ?>">
+        <button type="button" class="action primary">
+            <?= $escaper->escapeHtml(__('Request Shipping')); ?>
+        </button>
+    </a>
+
+    <a href="<?= $escaper->escapeUrl($buttonUrl); ?>">
+        <button type="button" class="action primary">
+            <?= $escaper->escapeHtml(__('Track Order')); ?>
+        </button>
+    </a>
+<?php } ?>
