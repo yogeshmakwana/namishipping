@@ -10,9 +10,21 @@ use Magento\Sales\Helper\Reorder;
 
 class Buttons extends \Magento\Sales\Block\Adminhtml\Order\View
 {
+    /**
+     * @var OrderRepositoryInterface
+     */
     protected $orderRepository;
+    /**
+     * @var Registry
+     */
     protected $registry;
+    /**
+     * @var ConfigInterface
+     */
     protected $salesConfig;
+    /**
+     * @var Reorder
+     */
     protected $reorderHelper;
 
     /**

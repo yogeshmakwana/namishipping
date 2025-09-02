@@ -8,9 +8,19 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 
 class Data extends AbstractHelper
 {
+    /**
+     * @var Curl
+     */
     protected $curl;
+    /**
+     * @var ScopeConfigInterface
+     */
     protected $scopeConfig;
 
+    /**
+     * @param Curl $curl
+     * @param ScopeConfigInterface $scopeConfig
+     */
     public function __construct(
         Curl $curl,
         ScopeConfigInterface $scopeConfig

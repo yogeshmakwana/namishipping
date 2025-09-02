@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminCreateCustomShippingMethodTest">
+        <annotations>
+            <features value="Customer"/>
+            <stories value="Login Customer in Admin by authenticating users"/>
+            <title value="Login Customer in Admin"/>
+            <description value="Admin should be able to Login"/>
+            <group value="Namicargo_Shipping"/>
+            <severity value="MAJOR"/>
+        </annotations>
+        <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin1"/>
+    </test>
+</tests>

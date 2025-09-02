@@ -8,7 +8,13 @@ use Magento\Framework\Registry;
 
 class TrackButton extends Template
 {
+    /**
+     * @var OrderRepositoryInterface
+     */
     protected $orderRepository;
+    /**
+     * @var Registry
+     */
     protected $registry;
 
     /**

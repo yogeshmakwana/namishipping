@@ -7,22 +7,31 @@ use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\HTTP\Client\Curl;
 use Namicargo\Shipping\Helper\Data;
 use Magento\Framework\App\Config\ScopeConfigInterface;
-use Namicargo\Shipping\Logger\NamicargoSendOrderToApiLogger;
-
-if (!defined('BP')) {
-    define('BP', dirname(__DIR__));
-}
+use Psr\Log\LoggerInterface as PsrLoggerInterface;
 
 class SendOrderToApi implements ObserverInterface
 {
+
+    /**
+     * @param Curl $curl
+     * @param Data $shippingApi
+     * @param ScopeConfigInterface $scopeConfig
+     * @param PsrLoggerInterface $namiLogger
+     */
     public function __construct(
         protected Curl $curl,
         protected Data $shippingApi,
         protected ScopeConfigInterface $scopeConfig,
-        private readonly NamicargoSendOrderToApiLogger $sendOrderLogger
+        protected PsrLoggerInterface $namiLogger
     ) {
     }
 
+    /**
+     * Sendorder Api
+     *
+     * @param Observer $observer
+     * @return void
+     */
     public function execute(Observer $observer)
     {
         $order = $observer->getData('order');
@@ -52,10 +61,10 @@ class SendOrderToApi implements ObserverInterface
 
                 $responsePost = $this->curl->getBody();
                 $responsePost = json_decode($responsePost, true);
-                $this->sendOrderLogger->info('Order sent to API. Response: ' . $responsePost);
+                $this->namiLogger->info('Order sent to API. Response: ' . PHP_EOL . print_r($responsePost, true));
             }
         } catch (\Exception $e) {
-            $this->sendOrderLogger->error('Error sending order to API: ' . $e->getMessage());
+            $this->namiLogger->error('Error sending order to API: ' . $e->getMessage());
         }
     }
 }

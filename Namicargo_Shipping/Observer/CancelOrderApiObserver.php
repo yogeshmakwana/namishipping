@@ -6,26 +6,33 @@ use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\HTTP\Client\Curl;
 use Namicargo\Shipping\Helper\Data;
-use Namicargo\Shipping\Logger\NamicargoCancelLogger;
-
-if (!defined('BP')) {
-    define('BP', dirname(__DIR__));
-}
+use Psr\Log\LoggerInterface as PsrLoggerInterface;
 
 class CancelOrderApiObserver implements ObserverInterface
 {
+    /**
+     * @param PsrLoggerInterface $namiLogger
+     * @param Curl $curl
+     * @param Data $shippingApi
+     */
     public function __construct(
-        private readonly NamicargoCancelLogger $cancelLogger,
+        protected PsrLoggerInterface $namiLogger,
         protected Curl $curl,
         protected Data $shippingApi
     ) {
     }
 
+    /**
+     * Cancel order token and call
+     *
+     * @param Observer $observer
+     * @return void
+     */
     public function execute(Observer $observer)
     {
         $order = $observer->getData('order');
         $shippingId = $order->getNamiShippingId();
-        $this->cancelLogger->info('order id : ' . $shippingId);
+        $this->namiLogger->info('order id : ' . $shippingId);
         if ($order->isCanceled() && $shippingId != null) {
             $apiConnection = $this->shippingApi->getAPIConnection();
             if ($apiConnection) {
@@ -37,7 +44,7 @@ class CancelOrderApiObserver implements ObserverInterface
                 ];
 
                 $jsonPayloadDelete = json_encode($payload);
-                $this->cancelLogger->info('Delete Payload: ' . $jsonPayloadDelete);
+                $this->namiLogger->info('Delete Payload: ' . $jsonPayloadDelete);
                 try {
                     $apiUrlDelete = 'https://api.nami.la/order';
 
@@ -53,22 +60,22 @@ class CancelOrderApiObserver implements ObserverInterface
                     $responseStatus = $this->curl->getStatus();
                     $response = $this->curl->getBody();
                     if ($responseStatus == 200) {
-                        $this->cancelLogger->info(
+                        $this->namiLogger->info(
                             'Order cancellation successfully sent to API. Response: ' . $response
                         );
                     }
 
-                    $this->cancelLogger->error(
+                    $this->namiLogger->error(
                         'Failed to cancel order via API. Status: '
                         . $responseStatus . ' Response: ' . $response
                     );
                 } catch (\Exception $e) {
-                    $this->cancelLogger->error(
+                    $this->namiLogger->error(
                         'Error occurred while sending order cancellation to API: ' . $e->getMessage()
                     );
                 }
             }
-            $this->cancelLogger->error('generate the new token');
+            $this->namiLogger->error('generate the new token');
         }
     }
 }

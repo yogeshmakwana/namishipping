@@ -10,9 +10,21 @@ use Namicargo\Shipping\Helper\Data;
 
 class ConnectAccount extends Field
 {
+    /**
+     * @var Curl
+     */
     protected $curl;
+    /**
+     * @var Data
+     */
     protected $shippingApi;
 
+    /**
+     * @param Context $context
+     * @param Curl $curl
+     * @param Data $shippingApi
+     * @param array $data
+     */
     public function __construct(
         Context $context,
         Curl $curl,

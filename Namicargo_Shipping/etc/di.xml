@@ -1,35 +1,76 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <type name="Namicargo\Shipping\Logger\NamicargoCancelLogger">
+    <virtualType name="Namicargo\Shipping\Model\NamicargoSendOrderToApiDebug" type="Magento\Framework\Logger\Handler\Base">
         <arguments>
-            <argument name="name" xsi:type="string">NamicargoCancel</argument>
+            <argument name="fileName" xsi:type="string">/var/log/NamicargoSendOrderToApi.log</argument>
+         </arguments>
+    </virtualType>
+    <virtualType name="Namicargo\Shipping\Model\NamicargoSendOrderToApiLogger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
             <argument name="handlers" xsi:type="array">
-                <item name="NamicargoCancel" xsi:type="object">Namicargo\Shipping\Logger\NamicargoCancelHandler</item>
+                <item name="debug" xsi:type="object">Namicargo\Shipping\Model\NamicargoSendOrderToApiDebug</item>
             </argument>
         </arguments>
-    </type>
-    <type name="Namicargo\Shipping\Logger\NamicargoSendOrderToApiLogger">
+    </virtualType>
+    <type name="Namicargo\Shipping\Observer\SendOrderToApi">
         <arguments>
-            <argument name="name" xsi:type="string">NamicargoSendOrderToApi</argument>
-            <argument name="handlers" xsi:type="array">
-                <item name="NamicargoSendOrderToApi" xsi:type="object">Namicargo\Shipping\Logger\NamicargoSendOrderToApiHandler</item>
-            </argument>
+            <argument name="namiLogger" xsi:type="object">Namicargo\Shipping\Model\NamicargoSendOrderToApiLogger</argument>
         </arguments>
     </type>
-    <type name="Namicargo\Shipping\Logger\NamicargoShippingLogger">
+    <virtualType name="Namicargo\Shipping\Model\NamicargoTransferCustomAttributeDebug" type="Magento\Framework\Logger\Handler\Base">
         <arguments>
-            <argument name="name" xsi:type="string">NamicargoShipping</argument>
+            <argument name="fileName" xsi:type="string">/var/log/NamicargoTransferCustomAttribute.log</argument>
+         </arguments>
+    </virtualType>
+    <virtualType name="Namicargo\Shipping\Model\NamicargoTransferCustomAttributeLogger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
             <argument name="handlers" xsi:type="array">
-                <item name="NamicargoShipping" xsi:type="object">Namicargo\Shipping\Logger\NamicargoShippingHandler</item>
+                <item name="debug" xsi:type="object">Namicargo\Shipping\Model\NamicargoTransferCustomAttributeDebug</item>
             </argument>
         </arguments>
-    </type>
-    <type name="Namicargo\Shipping\Logger\NamicargoTransferCustomAttributeLogger">
+    </virtualType>
+    <type name="Namicargo\Shipping\Observer\TransferCustomAttributeObserver">
         <arguments>
-            <argument name="name" xsi:type="string">NamicargoTransferCustomAttribute</argument>
+            <argument name="namiLogger" xsi:type="object">Namicargo\Shipping\Model\NamicargoTransferCustomAttributeLogger</argument>
+        </arguments>
+    </type>
+    <virtualType name="Namicargo\Shipping\Model\NamicargoCancelDebug" type="Magento\Framework\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/NamicargoCancel.log</argument>
+         </arguments>
+    </virtualType>
+    <virtualType name="Namicargo\Shipping\Model\NamicargoCancelLogger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
             <argument name="handlers" xsi:type="array">
-                <item name="NamicargoTransferCustomAttribute" xsi:type="object">Namicargo\Shipping\Logger\NamicargoTransferCustomAttributeHandler</item>
+                <item name="debug" xsi:type="object">Namicargo\Shipping\Model\NamicargoCancelDebug</item>
             </argument>
+        </arguments>
+    </virtualType>
+    <type name="Namicargo\Shipping\Observer\CancelOrderApiObserver">
+        <arguments>
+            <argument name="namiLogger" xsi:type="object">Namicargo\Shipping\Model\NamicargoCancelLogger</argument>
+        </arguments>
+    </type>
+    <virtualType name="Namicargo\Shipping\Logger\NamicargoShipping\Debug" type="Magento\Framework\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/NamicargoShipping.log</argument>
+         </arguments>
+    </virtualType>
+    <virtualType name="Namicargo\Shipping\Logger\NamicargoShippingLogger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="debug" xsi:type="object">Namicargo\Shipping\Logger\NamicargoShipping\Debug</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Namicargo\Shipping\Service\ShippingApiService">
+        <arguments>
+            <argument name="namiLogger" xsi:type="object">Namicargo\Shipping\Logger\NamicargoShippingLogger</argument>
+        </arguments>
+    </type>
+    <type name="Namicargo\Shipping\Model\Carrier\Customshipping">
+        <arguments>
+            <argument name="namiLogger" xsi:type="object">Namicargo\Shipping\Logger\NamicargoShippingLogger</argument>
         </arguments>
     </type>
 </config>
